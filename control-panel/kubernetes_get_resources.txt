@@ -1,0 +1,369 @@
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get apiservices              
+NAME                                   SERVICE   AVAILABLE   AGE
+v1.                                    Local     True        4d20h
+v1.admissionregistration.k8s.io        Local     True        4d20h
+v1.apiextensions.k8s.io                Local     True        4d20h
+v1.apps                                Local     True        4d20h
+v1.authentication.k8s.io               Local     True        4d20h
+v1.authorization.k8s.io                Local     True        4d20h
+v1.autoscaling                         Local     True        4d20h
+v1.batch                               Local     True        4d20h
+v1.certificates.k8s.io                 Local     True        4d20h
+v1.coordination.k8s.io                 Local     True        4d20h
+v1.discovery.k8s.io                    Local     True        4d20h
+v1.events.k8s.io                       Local     True        4d20h
+v1.flowcontrol.apiserver.k8s.io        Local     True        4d20h
+v1.networking.k8s.io                   Local     True        4d20h
+v1.node.k8s.io                         Local     True        4d20h
+v1.policy                              Local     True        4d20h
+v1.rbac.authorization.k8s.io           Local     True        4d20h
+v1.scheduling.k8s.io                   Local     True        4d20h
+v1.storage.k8s.io                      Local     True        4d20h
+v1beta3.flowcontrol.apiserver.k8s.io   Local     True        4d20h
+v2.autoscaling                         Local     True        4d20h
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get bindings         
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get certificatesigningrequests
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get clusterrolebindings
+NAME                                                            ROLE                                                                               AGE
+cluster-admin                                                   ClusterRole/cluster-admin                                                          4d20h
+kubeadm:cluster-admins                                          ClusterRole/cluster-admin                                                          4d20h
+kubeadm:get-nodes                                               ClusterRole/kubeadm:get-nodes                                                      4d20h
+kubeadm:kubelet-bootstrap                                       ClusterRole/system:node-bootstrapper                                               4d20h
+kubeadm:node-autoapprove-bootstrap                              ClusterRole/system:certificates.k8s.io:certificatesigningrequests:nodeclient       4d20h
+kubeadm:node-autoapprove-certificate-rotation                   ClusterRole/system:certificates.k8s.io:certificatesigningrequests:selfnodeclient   4d20h
+kubeadm:node-proxier                                            ClusterRole/system:node-proxier                                                    4d20h
+storage-provisioner                                             ClusterRole/storage-provisioner                                                    4d20h
+system:basic-user                                               ClusterRole/system:basic-user                                                      4d20h
+system:controller:attachdetach-controller                       ClusterRole/system:controller:attachdetach-controller                              4d20h
+system:controller:certificate-controller                        ClusterRole/system:controller:certificate-controller                               4d20h
+system:controller:clusterrole-aggregation-controller            ClusterRole/system:controller:clusterrole-aggregation-controller                   4d20h
+system:controller:cronjob-controller                            ClusterRole/system:controller:cronjob-controller                                   4d20h
+system:controller:daemon-set-controller                         ClusterRole/system:controller:daemon-set-controller                                4d20h
+system:controller:deployment-controller                         ClusterRole/system:controller:deployment-controller                                4d20h
+system:controller:disruption-controller                         ClusterRole/system:controller:disruption-controller                                4d20h
+system:controller:endpoint-controller                           ClusterRole/system:controller:endpoint-controller                                  4d20h
+system:controller:endpointslice-controller                      ClusterRole/system:controller:endpointslice-controller                             4d20h
+system:controller:endpointslicemirroring-controller             ClusterRole/system:controller:endpointslicemirroring-controller                    4d20h
+system:controller:ephemeral-volume-controller                   ClusterRole/system:controller:ephemeral-volume-controller                          4d20h
+system:controller:expand-controller                             ClusterRole/system:controller:expand-controller                                    4d20h
+system:controller:generic-garbage-collector                     ClusterRole/system:controller:generic-garbage-collector                            4d20h
+system:controller:horizontal-pod-autoscaler                     ClusterRole/system:controller:horizontal-pod-autoscaler                            4d20h
+system:controller:job-controller                                ClusterRole/system:controller:job-controller                                       4d20h
+system:controller:legacy-service-account-token-cleaner          ClusterRole/system:controller:legacy-service-account-token-cleaner                 4d20h
+system:controller:namespace-controller                          ClusterRole/system:controller:namespace-controller                                 4d20h
+system:controller:node-controller                               ClusterRole/system:controller:node-controller                                      4d20h
+system:controller:persistent-volume-binder                      ClusterRole/system:controller:persistent-volume-binder                             4d20h
+system:controller:pod-garbage-collector                         ClusterRole/system:controller:pod-garbage-collector                                4d20h
+system:controller:pv-protection-controller                      ClusterRole/system:controller:pv-protection-controller                             4d20h
+system:controller:pvc-protection-controller                     ClusterRole/system:controller:pvc-protection-controller                            4d20h
+system:controller:replicaset-controller                         ClusterRole/system:controller:replicaset-controller                                4d20h
+system:controller:replication-controller                        ClusterRole/system:controller:replication-controller                               4d20h
+system:controller:resourcequota-controller                      ClusterRole/system:controller:resourcequota-controller                             4d20h
+system:controller:root-ca-cert-publisher                        ClusterRole/system:controller:root-ca-cert-publisher                               4d20h
+system:controller:route-controller                              ClusterRole/system:controller:route-controller                                     4d20h
+system:controller:service-account-controller                    ClusterRole/system:controller:service-account-controller                           4d20h
+system:controller:service-controller                            ClusterRole/system:controller:service-controller                                   4d20h
+system:controller:statefulset-controller                        ClusterRole/system:controller:statefulset-controller                               4d20h
+system:controller:ttl-after-finished-controller                 ClusterRole/system:controller:ttl-after-finished-controller                        4d20h
+system:controller:ttl-controller                                ClusterRole/system:controller:ttl-controller                                       4d20h
+system:controller:validatingadmissionpolicy-status-controller   ClusterRole/system:controller:validatingadmissionpolicy-status-controller          4d20h
+system:coredns                                                  ClusterRole/system:coredns                                                         4d20h
+system:discovery                                                ClusterRole/system:discovery                                                       4d20h
+system:kube-controller-manager                                  ClusterRole/system:kube-controller-manager                                         4d20h
+system:kube-dns                                                 ClusterRole/system:kube-dns                                                        4d20h
+system:kube-scheduler                                           ClusterRole/system:kube-scheduler                                                  4d20h
+system:monitoring                                               ClusterRole/system:monitoring                                                      4d20h
+system:node                                                     ClusterRole/system:node                                                            4d20h
+system:node-proxier                                             ClusterRole/system:node-proxier                                                    4d20h
+system:public-info-viewer                                       ClusterRole/system:public-info-viewer                                              4d20h
+system:service-account-issuer-discovery                         ClusterRole/system:service-account-issuer-discovery                                4d20h
+system:volume-scheduler                                         ClusterRole/system:volume-scheduler                                                4d20h
+vpnkit-controller                                               ClusterRole/vpnkit-controller                                                      4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get clusterroles       
+NAME                                                                   CREATED AT
+admin                                                                  2024-10-03T22:34:16Z
+cluster-admin                                                          2024-10-03T22:34:16Z
+edit                                                                   2024-10-03T22:34:16Z
+kubeadm:get-nodes                                                      2024-10-03T22:34:17Z
+storage-provisioner                                                    2024-10-03T22:34:27Z
+system:aggregate-to-admin                                              2024-10-03T22:34:16Z
+system:aggregate-to-edit                                               2024-10-03T22:34:16Z
+system:aggregate-to-view                                               2024-10-03T22:34:16Z
+system:auth-delegator                                                  2024-10-03T22:34:16Z
+system:basic-user                                                      2024-10-03T22:34:16Z
+system:certificates.k8s.io:certificatesigningrequests:nodeclient       2024-10-03T22:34:16Z
+system:certificates.k8s.io:certificatesigningrequests:selfnodeclient   2024-10-03T22:34:16Z
+system:certificates.k8s.io:kube-apiserver-client-approver              2024-10-03T22:34:16Z
+system:certificates.k8s.io:kube-apiserver-client-kubelet-approver      2024-10-03T22:34:16Z
+system:certificates.k8s.io:kubelet-serving-approver                    2024-10-03T22:34:16Z
+system:certificates.k8s.io:legacy-unknown-approver                     2024-10-03T22:34:16Z
+system:controller:attachdetach-controller                              2024-10-03T22:34:16Z
+system:controller:certificate-controller                               2024-10-03T22:34:16Z
+system:controller:clusterrole-aggregation-controller                   2024-10-03T22:34:16Z
+system:controller:cronjob-controller                                   2024-10-03T22:34:16Z
+system:controller:daemon-set-controller                                2024-10-03T22:34:16Z
+system:controller:deployment-controller                                2024-10-03T22:34:16Z
+system:controller:disruption-controller                                2024-10-03T22:34:16Z
+system:controller:endpoint-controller                                  2024-10-03T22:34:16Z
+system:controller:endpointslice-controller                             2024-10-03T22:34:16Z
+system:controller:endpointslicemirroring-controller                    2024-10-03T22:34:16Z
+system:controller:ephemeral-volume-controller                          2024-10-03T22:34:16Z
+system:controller:expand-controller                                    2024-10-03T22:34:16Z
+system:controller:generic-garbage-collector                            2024-10-03T22:34:16Z
+system:controller:horizontal-pod-autoscaler                            2024-10-03T22:34:16Z
+system:controller:job-controller                                       2024-10-03T22:34:16Z
+system:controller:legacy-service-account-token-cleaner                 2024-10-03T22:34:16Z
+system:controller:namespace-controller                                 2024-10-03T22:34:16Z
+system:controller:node-controller                                      2024-10-03T22:34:16Z
+system:controller:persistent-volume-binder                             2024-10-03T22:34:16Z
+system:controller:pod-garbage-collector                                2024-10-03T22:34:16Z
+system:controller:pv-protection-controller                             2024-10-03T22:34:16Z
+system:controller:pvc-protection-controller                            2024-10-03T22:34:16Z
+system:controller:replicaset-controller                                2024-10-03T22:34:16Z
+system:controller:replication-controller                               2024-10-03T22:34:16Z
+system:controller:resourcequota-controller                             2024-10-03T22:34:16Z
+system:controller:root-ca-cert-publisher                               2024-10-03T22:34:16Z
+system:controller:route-controller                                     2024-10-03T22:34:16Z
+system:controller:service-account-controller                           2024-10-03T22:34:16Z
+system:controller:service-controller                                   2024-10-03T22:34:16Z
+system:controller:statefulset-controller                               2024-10-03T22:34:16Z
+system:controller:ttl-after-finished-controller                        2024-10-03T22:34:16Z
+system:controller:ttl-controller                                       2024-10-03T22:34:16Z
+system:controller:validatingadmissionpolicy-status-controller          2024-10-03T22:34:16Z
+system:coredns                                                         2024-10-03T22:34:18Z
+system:discovery                                                       2024-10-03T22:34:16Z
+system:heapster                                                        2024-10-03T22:34:16Z
+system:kube-aggregator                                                 2024-10-03T22:34:16Z
+system:kube-controller-manager                                         2024-10-03T22:34:16Z
+system:kube-dns                                                        2024-10-03T22:34:16Z
+system:kube-scheduler                                                  2024-10-03T22:34:16Z
+system:kubelet-api-admin                                               2024-10-03T22:34:16Z
+system:monitoring                                                      2024-10-03T22:34:16Z
+system:node                                                            2024-10-03T22:34:16Z
+system:node-bootstrapper                                               2024-10-03T22:34:16Z
+system:node-problem-detector                                           2024-10-03T22:34:16Z
+system:node-proxier                                                    2024-10-03T22:34:16Z
+system:persistent-volume-provisioner                                   2024-10-03T22:34:16Z
+system:public-info-viewer                                              2024-10-03T22:34:16Z
+system:service-account-issuer-discovery                                2024-10-03T22:34:16Z
+system:volume-scheduler                                                2024-10-03T22:34:16Z
+view                                                                   2024-10-03T22:34:16Z
+vpnkit-controller                                                      2024-10-03T22:34:27Z
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get componentstatuses
+NAME                 STATUS    MESSAGE   ERROR
+scheduler            Healthy   ok        
+controller-manager   Healthy   ok        
+etcd-0               Healthy   ok        
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get configmaps       
+NAME               DATA   AGE
+kube-root-ca.crt   1      4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get controllerrevisions
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get cronjobs                
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get csidrivers     
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get csinodes  
+NAME             DRIVERS   AGE
+docker-desktop   0         4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get csistoragecapacities
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get customresourcedefinitions      
+No resources found.
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get daemonsets         
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get deployments
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+timeserver   1/1     1            1           31m
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get endpoints 
+NAME                  ENDPOINTS           AGE
+kubernetes            192.168.65.3:6443   4d20h
+timeserver-internal   10.1.0.30:80        27m
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get endpointslices
+NAME                        ADDRESSTYPE   PORTS   ENDPOINTS      AGE
+kubernetes                  IPv4          6443    192.168.65.3   4d20h
+timeserver-internal-9gjfj   IPv4          80      10.1.0.30      37m
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get events
+LAST SEEN   TYPE      REASON                         OBJECT                                          MESSAGE
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-2t6tt                 Successfully assigned default/timeserver-575c8f957f-2t6tt to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-2t6tt                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-2t6tt                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 799ms (1m21.315s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-2t6tt                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-2t6tt                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-2t6tt                 Stopping container timeserver-container
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-4lsqq                 Successfully assigned default/timeserver-575c8f957f-4lsqq to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-4lsqq                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-4lsqq                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 1m17.973s (1m17.973s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-4lsqq                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-4lsqq                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-4lsqq                 Stopping container timeserver-container
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-4m7jb                 Successfully assigned default/timeserver-575c8f957f-4m7jb to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-4m7jb                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-4m7jb                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 1.085s (1m19.048s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-4m7jb                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-4m7jb                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-4m7jb                 Stopping container timeserver-container
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-fbwfm                 Successfully assigned default/timeserver-575c8f957f-fbwfm to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-fbwfm                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-fbwfm                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 688ms (1m19.697s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-fbwfm                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-fbwfm                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-fbwfm                 Stopping container timeserver-container
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-pjkmq                 Successfully assigned default/timeserver-575c8f957f-pjkmq to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-pjkmq                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-pjkmq                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 918ms (1m21.965s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-pjkmq                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-pjkmq                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-pjkmq                 Stopping container timeserver-container
+41m         Normal    Scheduled                      pod/timeserver-575c8f957f-qr54d                 Successfully assigned default/timeserver-575c8f957f-qr54d to docker-desktop
+41m         Normal    Pulling                        pod/timeserver-575c8f957f-qr54d                 Pulling image "docker.io/wdenniss/timeserver:3"
+40m         Normal    Pulled                         pod/timeserver-575c8f957f-qr54d                 Successfully pulled image "docker.io/wdenniss/timeserver:3" in 849ms (1m20.516s including waiting). Image size: 375324301 bytes.
+40m         Normal    Created                        pod/timeserver-575c8f957f-qr54d                 Created container timeserver-container
+40m         Normal    Started                        pod/timeserver-575c8f957f-qr54d                 Started container timeserver-container
+38m         Normal    Killing                        pod/timeserver-575c8f957f-qr54d                 Stopping container timeserver-container
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-4m7jb
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-2t6tt
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-4lsqq
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-pjkmq
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-fbwfm
+41m         Normal    SuccessfulCreate               replicaset/timeserver-575c8f957f                Created pod: timeserver-575c8f957f-qr54d
+38m         Normal    Scheduled                      pod/timeserver-5fc5c9cc46-hfmbk                 Successfully assigned default/timeserver-5fc5c9cc46-hfmbk to docker-desktop
+38m         Normal    Pulling                        pod/timeserver-5fc5c9cc46-hfmbk                 Pulling image "docker.io/wdenniss/timeserver:4"
+38m         Normal    Pulled                         pod/timeserver-5fc5c9cc46-hfmbk                 Successfully pulled image "docker.io/wdenniss/timeserver:4" in 1.596s (1.596s including waiting). Image size: 375324510 bytes.
+38m         Normal    Created                        pod/timeserver-5fc5c9cc46-hfmbk                 Created container timeserver-container
+38m         Normal    Started                        pod/timeserver-5fc5c9cc46-hfmbk                 Started container timeserver-container
+38m         Normal    SuccessfulCreate               replicaset/timeserver-5fc5c9cc46                Created pod: timeserver-5fc5c9cc46-hfmbk
+73s         Warning   FailedGetExternalMetric        horizontalpodautoscaler/timeserver-autoscaler   unable to get external metric default/loadbalancing.googleapis.com|https|request_count/&LabelSelector{MatchLabels:map[string]string{resource.labels.forwarding_rule_name: k8s2-fr-21mgs2fl,},MatchExpressions:[]LabelSelectorRequirement{},}: unable to fetch metrics from external metrics API: the server could not find the requested resource (get loadbalancing.googleapis.com|https|request_count.external.metrics.k8s.io)
+22m         Warning   FailedComputeMetricsReplicas   horizontalpodautoscaler/timeserver-autoscaler   invalid metrics (1 invalid out of 1), first error is: failed to get loadbalancing.googleapis.com|https|request_count external metric value: failed to get loadbalancing.googleapis.com|https|request_count external metric: unable to get external metric default/loadbalancing.googleapis.com|https|request_count/&LabelSelector{MatchLabels:map[string]string{resource.labels.forwarding_rule_name: k8s2-fr-21mgs2fl,},MatchExpressions:[]LabelSelectorRequirement{},}: unable to fetch metrics from external metrics API: the server could not find the requested resource (get loadbalancing.googleapis.com|https|request_count.external.metrics.k8s.io)
+41m         Normal    ScalingReplicaSet              deployment/timeserver                           Scaled up replica set timeserver-575c8f957f to 6
+38m         Normal    ScalingReplicaSet              deployment/timeserver                           Scaled up replica set timeserver-5fc5c9cc46 to 1
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get flowschemas       
+NAME                           PRIORITYLEVEL     MATCHINGPRECEDENCE   DISTINGUISHERMETHOD   AGE     MISSINGPL
+exempt                         exempt            1                    <none>                4d20h   False
+probes                         exempt            2                    <none>                4d20h   False
+system-leader-election         leader-election   100                  ByUser                4d20h   False
+endpoint-controller            workload-high     150                  ByUser                4d20h   False
+workload-leader-election       leader-election   200                  ByUser                4d20h   False
+system-node-high               node-high         400                  ByUser                4d20h   False
+system-nodes                   system            500                  ByUser                4d20h   False
+kube-controller-manager        workload-high     800                  ByNamespace           4d20h   False
+kube-scheduler                 workload-high     800                  ByNamespace           4d20h   False
+kube-system-service-accounts   workload-high     900                  ByNamespace           4d20h   False
+service-accounts               workload-low      9000                 ByUser                4d20h   False
+global-default                 global-default    9900                 ByUser                4d20h   False
+catch-all                      catch-all         10000                ByUser                4d20h   False
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get horizontalpodautoscalers
+NAME                    REFERENCE               TARGETS             MINPODS   MAXPODS   REPLICAS   AGE
+timeserver-autoscaler   Deployment/timeserver   <unknown>/5 (avg)   1         6         1          34m
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get ingressclasses             
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get ingresses     
+NAME                 CLASS    HOSTS   ADDRESS   PORTS   AGE
+timeserver-ingress   <none>   *                 80      40m
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get jobs    
+No resources found.
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get leases
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get limitranges
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get localsubjectaccessreviews
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get mutatingwebhookconfigurations
+No resources found.
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get namespaces 
+NAME              STATUS   AGE
+default           Active   4d20h
+kube-node-lease   Active   4d20h
+kube-public       Active   4d20h
+kube-system       Active   4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get networkpolicies
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get nodes
+NAME             STATUS   ROLES           AGE     VERSION
+docker-desktop   Ready    control-plane   4d20h   v1.30.2
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get persistentvolumeclaims
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get persistentvolumes     
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get poddisruptionbudgets
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get podsecuritypolicies 
+error: the server doesn't have a resource type "podsecuritypolicies"
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get pods             
+NAME                          READY   STATUS    RESTARTS   AGE
+timeserver-5fc5c9cc46-hfmbk   1/1     Running   0          29m
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get podtemplates
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get priorityclasses
+NAME                      VALUE        GLOBAL-DEFAULT   AGE
+system-cluster-critical   2000000000   false            4d20h
+system-node-critical      2000001000   false            4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get prioritylevelconfigurations
+NAME              TYPE      NOMINALCONCURRENCYSHARES   QUEUES   HANDSIZE   QUEUELENGTHLIMIT   AGE
+catch-all         Limited   5                          <none>   <none>     <none>             4d20h
+exempt            Exempt    <none>                     <none>   <none>     <none>             4d20h
+global-default    Limited   20                         128      6          50                 4d20h
+leader-election   Limited   10                         16       4          50                 4d20h
+node-high         Limited   40                         64       6          50                 4d20h
+system            Limited   30                         64       6          50                 4d20h
+workload-high     Limited   40                         128      6          50                 4d20h
+workload-low      Limited   100                        128      6          50                 4d20h
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get replicasets
+NAME                    DESIRED   CURRENT   READY   AGE
+timeserver-5fc5c9cc46   1         1         1       31m
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get replicationcontrollers
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get resourcequotas        
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get rolebindings      
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get roles       
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get runtimeclasses 
+No resources found.
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get secrets       
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get selfsubjectaccessreviews 
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get selfsubjectrulesreviews 
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get serviceaccounts
+NAME      SECRETS   AGE
+default   0         4d20h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get services       
+NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+kubernetes            ClusterIP   10.96.0.1        <none>        443/TCP        4d20h
+timeserver-internal   NodePort    10.103.146.110   <none>        80:31992/TCP   29m
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get statefulsets
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get storageclasses
+NAME                 PROVISIONER          RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+hostpath (default)   docker.io/hostpath   Delete          Immediate           false                  4d21h
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get subjectaccessreviews   
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get tokenreviews
+Error from server (MethodNotAllowed): the server does not allow this method on the requested resource
+
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get validatingwebhookconfigurations
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % kubectl get volumeattachments
+No resources found.
+tim@Tims-MBP 6.2.1_ExternalMetricGCP % 

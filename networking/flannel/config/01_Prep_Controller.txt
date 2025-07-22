@@ -1,0 +1,31 @@
+
+tim@Tims-MBP ~ % ssh sre@k8s-node-01
+sre@k8s-node-01:~$ ip addr show
+sre@k8s-node-01:~$ sudo apt-get install -y containerd
+sre@k8s-node-01:~$ systemctl status containerd
+sre@k8s-node-01:~$ sudo mkdir /etc/containerd
+sre@k8s-node-01:~$ containerd config default | sudo tee /etc/containerd/config.toml
+sre@k8s-node-01:~$ sudo vi /etc/containerd/config.toml
+                   SystemdCgroup = true
+sre@k8s-node-01:~$ sudo swapoff -a
+sre@k8s-node-01:~$ free -m
+sre@k8s-node-01:~$ sudo vi /etc/fstab
+sre@k8s-node-01:~$ sudo vi /etc/sysctl.conf
+sre@k8s-node-01:~$ sudo vi /etc/modules-load.d/k8s.conf
+sre@k8s-node-01:~$ sudo reboot now
+
+tim@Tims-MBP ~ % ssh sre@k8s-node-02
+sre@k8s-node-02:~$ ip addr show
+sre@k8s-node-02:~$ sudo apt-get install -y containerd
+sre@k8s-node-02:~$ systemctl status containerd
+sre@k8s-node-02:~$ sudo mkdir /etc/containerd
+sre@k8s-node-02:~$ containerd config default | sudo tee /etc/containerd/config.toml
+sre@k8s-node-02:~$ sudo vi /etc/containerd/config.toml
+                   SystemdCgroup = true
+sre@k8s-node-02:~$ sudo swapoff -a
+sre@k8s-node-02:~$ free -m
+sre@k8s-node-02:~$ sudo vi /etc/fstab
+sre@k8s-node-02:~$ sudo vi /etc/sysctl.conf
+sre@k8s-node-02:~$ sudo vi /etc/modules-load.d/k8s.conf
+sre@k8s-node-02:~$ sudo reboot now
+

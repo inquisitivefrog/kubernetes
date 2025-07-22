@@ -1,0 +1,84 @@
+
+tim@Tims-MBP ~ % ssh sre@k8s-controller-01
+sre@k8s-controller-01:~$ sudo apt-get install -y containerd
+sre@k8s-controller-01:~$ systemctl status containerd
+sre@k8s-controller-01:~$ sudo mkdir /etc/containerd
+sre@k8s-controller-01:~$ containerd config default | sudo tee /etc/containerd/config.toml
+                         SystemdCgroup = true
+sre@k8s-controller-01:~$ sudo vi /etc/containerd/config.toml
+sre@k8s-controller-01:~$ sudo swapoff -a
+sre@k8s-controller-01:~$ free -m
+sre@k8s-controller-01:~$ sudo vi /etc/fstab
+sre@k8s-controller-01:~$ sudo vi /etc/sysctl.conf
+sre@k8s-controller-01:~$ sudo vi /etc/modules-load.d/k8s.conf
+sre@k8s-controller-01:~$ sudo reboot now
+
+sre@k8s-controller-01:~$ cat /etc/hosts
+127.0.0.1 localhost
+#127.0.1.1 k8s-controller-01
+
+192.168.1.105 k8s-controller-01
+192.168.1.107 k8s-node-01
+192.126.1.109 k8s-node-02
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+see https://kubernetes.io/blog/2023/08/15/pkgs-k8s-io-introduction/#how-to-migrate
+sre@k8s-controller-01:~$ echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+[sudo] password for sre:
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /
+sre@k8s-controller-01:~$ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sre@k8s-controller-01:~$ sudo apt-get update
+sre@k8s-controller-01:~$ sudo apt-get dist-upgrade
+sre@k8s-controller-01:~$ sudo apt-get install -y kubeadm kubectl kubelet docker.io
+sre@k8s-controller-01:~$ sudo apt-mark hold kubelet kubectl kubeadm
+kubelet set on hold.
+kubectl set on hold.
+kubeadm set on hold.
+
+sre@k8s-controller-01:~$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+KUBE-FIREWALL  all  --  anywhere             anywhere
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+DOCKER-USER  all  --  anywhere             anywhere
+DOCKER-ISOLATION-STAGE-1  all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+KUBE-FIREWALL  all  --  anywhere             anywhere
+
+Chain DOCKER (1 references)
+target     prot opt source               destination
+
+Chain DOCKER-ISOLATION-STAGE-1 (1 references)
+target     prot opt source               destination
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-ISOLATION-STAGE-2 (1 references)
+target     prot opt source               destination
+DROP       all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+
+Chain KUBE-FIREWALL (2 references)
+target     prot opt source               destination
+DROP       all  -- !localhost/8          localhost/8          /* block incoming localnet connections */ ! ctstate RELATED,ESTABLISHED,DNAT
+
+Chain KUBE-KUBELET-CANARY (0 references)
+target     prot opt source               destination
+

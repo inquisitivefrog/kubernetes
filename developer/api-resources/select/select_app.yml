@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: "alpaca-prod"
+spec:       
+  selector:
+    matchLabels:
+      app: alpaca
+      matchExpressions:
+        - {key: app, operator: In, values: ["alpaca"]}

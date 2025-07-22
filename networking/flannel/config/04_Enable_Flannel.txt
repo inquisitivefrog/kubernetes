@@ -1,0 +1,13 @@
+
+sre@k8s-controller-01:~$ sudo vi /etc/udev/rules.d/90-flannel.rules
+sre@k8s-controller-01:~$ sudo /usr/sbin/ethtool -K flannel.1 tx-checksum-ip-generic off
+Actual changes:
+tx-checksum-ip-generic: off
+tx-tcp-segmentation: off [not requested]
+tx-tcp-ecn-segmentation: off [not requested]
+tx-tcp-mangleid-segmentation: off [not requested]
+tx-tcp6-segmentation: off [not requested]
+sre@k8s-controller-01:~$ ps -ef | grep flannel
+root       15579   15299  0 17:50 ?        00:00:04 /opt/bin/flanneld --ip-masq --kube-subnet-mgr
+sre        22086    4413  0 18:14 pts/0    00:00:00 grep --color=auto flannel
+

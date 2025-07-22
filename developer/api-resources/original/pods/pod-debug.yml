@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+spec:
+  containers:
+    - name: busybox
+      # useful debug tool with editing
+      # /bin/sed, /bin/vi, /bin/less, /bin/more, /bin/wc
+      # /bin/awk
+      # process management
+      # /bin/echo, /usr/bin/env, /bin/ps, /bin/dmesg
+      # /bin/lsof, /bin/sysctl, /bin/kill, /bin/date
+      # /bin/crontab
+      # system resource management
+      # /bin/df, /bin/free, /etc/passwd, /etc/shadow
+      # network management
+      # /bin/netstat, /bin/route, /bin/ip, /bin/fuser
+      # /bin/nc, /bin/hostname, /bin/telnet, /bin/ping
+      # /bin/nslookup, /bin/traceroute
+      # /etc/resolv.conf, /etc/nsswitch.conf, /etc/hostname
+      image: docker.io/busybox:1.36.1
+      command: ["/bin/sh", "-c", "sleep 7200"]

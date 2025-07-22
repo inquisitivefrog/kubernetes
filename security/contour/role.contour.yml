@@ -1,0 +1,28 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","metadata":{"annotations":{},"name":"contour","namespace":"projectcontour"},"rules":[{"apiGroups":[""],"resources":["events"],"verbs":["create","get","update"]},{"apiGroups":["coordination.k8s.io"],"resources":["leases"],"verbs":["create","get","update"]}]}
+  creationTimestamp: "2024-11-25T18:52:52Z"
+  name: contour
+  namespace: projectcontour
+  resourceVersion: "134076"
+  uid: ea91a012-124c-4e5c-88bc-cc5659e71fad
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - get
+  - update
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - update

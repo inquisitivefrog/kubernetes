@@ -1,0 +1,230 @@
+
+sre@k8s-controller-01:~$ sudo kubeadm init --control-plane-endpoint=192.168.1.105 --node-name k8s-controller-01 --pod-network-cidr=10.244.0.0/16
+I1023 23:22:54.411312    4246 version.go:256] remote version is much newer: v1.31.2; falling back to: stable-1.28
+[init] Using Kubernetes version: v1.28.15
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+W1023 23:22:55.173364    4246 checks.go:835] detected that the sandbox image "registry.k8s.io/pause:3.8" of the container runtime is inconsistent with that used by kubeadm. It is recommended that using "registry.k8s.io/pause:3.9" as the CRI sandbox image.
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [k8s-controller-01 kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.1.105]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [k8s-controller-01 localhost] and IPs [192.168.1.105 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [k8s-controller-01 localhost] and IPs [192.168.1.105 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 7.504383 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node k8s-controller-01 as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node k8s-controller-01 as control-plane by adding the taints [node-role.kubernetes.io/control-plane:NoSchedule]
+[bootstrap-token] Using token: s7sh27.di2w71fui2nikq79
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] Configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of control-plane nodes by copying certificate authorities
+and service account keys on each node and then running the following as root:
+
+  kubeadm join 192.168.1.105:6443 --token s7sh27.di2w71fui2nikq79 \
+	--discovery-token-ca-cert-hash sha256:345069e115aef2bf9c42f333fe631c7ed2cd6f7ce33d2015c7864f70f75f0679 \
+	--control-plane 
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.1.105:6443 --token s7sh27.di2w71fui2nikq79 \
+	--discovery-token-ca-cert-hash sha256:345069e115aef2bf9c42f333fe631c7ed2cd6f7ce33d2015c7864f70f75f0679 
+sre@k8s-controller-01:~$ 
+sre@k8s-controller-01:~$ sudo kubeadm config images list
+I1023 23:24:07.584223    5114 version.go:256] remote version is much newer: v1.31.2; falling back to: stable-1.28
+registry.k8s.io/kube-apiserver:v1.28.15
+registry.k8s.io/kube-controller-manager:v1.28.15
+registry.k8s.io/kube-scheduler:v1.28.15
+registry.k8s.io/kube-proxy:v1.28.15
+registry.k8s.io/pause:3.9
+registry.k8s.io/etcd:3.5.15-0
+registry.k8s.io/coredns/coredns:v1.10.1
+
+sre@k8s-controller-01:~$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+KUBE-PROXY-FIREWALL  all  --  anywhere             anywhere             ctstate NEW /* kubernetes load balancer firewall */
+KUBE-NODEPORTS  all  --  anywhere             anywhere             /* kubernetes health check service ports */
+KUBE-EXTERNAL-SERVICES  all  --  anywhere             anywhere             ctstate NEW /* kubernetes externally-visible service portals */
+KUBE-FIREWALL  all  --  anywhere             anywhere            
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+KUBE-PROXY-FIREWALL  all  --  anywhere             anywhere             ctstate NEW /* kubernetes load balancer firewall */
+KUBE-FORWARD  all  --  anywhere             anywhere             /* kubernetes forwarding rules */
+KUBE-SERVICES  all  --  anywhere             anywhere             ctstate NEW /* kubernetes service portals */
+KUBE-EXTERNAL-SERVICES  all  --  anywhere             anywhere             ctstate NEW /* kubernetes externally-visible service portals */
+DOCKER-USER  all  --  anywhere             anywhere            
+DOCKER-ISOLATION-STAGE-1  all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+KUBE-PROXY-FIREWALL  all  --  anywhere             anywhere             ctstate NEW /* kubernetes load balancer firewall */
+KUBE-SERVICES  all  --  anywhere             anywhere             ctstate NEW /* kubernetes service portals */
+KUBE-FIREWALL  all  --  anywhere             anywhere            
+
+Chain DOCKER (1 references)
+target     prot opt source               destination         
+
+Chain DOCKER-ISOLATION-STAGE-1 (1 references)
+target     prot opt source               destination         
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere            
+RETURN     all  --  anywhere             anywhere            
+
+Chain DOCKER-ISOLATION-STAGE-2 (1 references)
+target     prot opt source               destination         
+DROP       all  --  anywhere             anywhere            
+RETURN     all  --  anywhere             anywhere            
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination         
+RETURN     all  --  anywhere             anywhere            
+
+Chain KUBE-EXTERNAL-SERVICES (2 references)
+target     prot opt source               destination         
+
+Chain KUBE-FIREWALL (2 references)
+target     prot opt source               destination         
+DROP       all  -- !localhost/8          localhost/8          /* block incoming localnet connections */ ! ctstate RELATED,ESTABLISHED,DNAT
+
+Chain KUBE-FORWARD (1 references)
+target     prot opt source               destination         
+DROP       all  --  anywhere             anywhere             ctstate INVALID
+ACCEPT     all  --  anywhere             anywhere             /* kubernetes forwarding rules */ mark match 0x4000/0x4000
+ACCEPT     all  --  anywhere             anywhere             /* kubernetes forwarding conntrack rule */ ctstate RELATED,ESTABLISHED
+
+Chain KUBE-KUBELET-CANARY (0 references)
+target     prot opt source               destination         
+
+Chain KUBE-NODEPORTS (1 references)
+target     prot opt source               destination         
+
+Chain KUBE-PROXY-CANARY (0 references)
+target     prot opt source               destination         
+
+Chain KUBE-PROXY-FIREWALL (3 references)
+target     prot opt source               destination         
+
+Chain KUBE-SERVICES (2 references)
+target     prot opt source               destination         
+REJECT     udp  --  anywhere             10.96.0.10           /* kube-system/kube-dns:dns has no endpoints */ udp dpt:domain reject-with icmp-port-unreachable
+REJECT     tcp  --  anywhere             10.96.0.10           /* kube-system/kube-dns:dns-tcp has no endpoints */ tcp dpt:domain reject-with icmp-port-unreachable
+REJECT     tcp  --  anywhere             10.96.0.10           /* kube-system/kube-dns:metrics has no endpoints */ tcp dpt:9153 reject-with icmp-port-unreachable
+
+sre@k8s-controller-01:~$ ps -ef | grep kube
+root        4602    4409  4 23:23 ?        00:00:07 kube-controller-manager --allocate-node-cidrs=true --authentication-kubeconfig=/etc/kubernetes/controller-manager.conf --authorization-kubeconfig=/etc/kubernetes/controller-manager.conf --bind-address=127.0.0.1 --client-ca-file=/etc/kubernetes/pki/ca.crt --cluster-cidr=10.244.0.0/16 --cluster-name=kubernetes --cluster-signing-cert-file=/etc/kubernetes/pki/ca.crt --cluster-signing-key-file=/etc/kubernetes/pki/ca.key --controllers=*,bootstrapsigner,tokencleaner --kubeconfig=/etc/kubernetes/controller-manager.conf --leader-elect=true --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt --root-ca-file=/etc/kubernetes/pki/ca.crt --service-account-private-key-file=/etc/kubernetes/pki/sa.key --service-cluster-ip-range=10.96.0.0/12 --use-service-account-credentials=true
+root        4614    4391 12 23:23 ?        00:00:23 kube-apiserver --advertise-address=192.168.1.105 --allow-privileged=true --authorization-mode=Node,RBAC --client-ca-file=/etc/kubernetes/pki/ca.crt --enable-admission-plugins=NodeRestriction --enable-bootstrap-token-auth=true --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key --etcd-servers=https://127.0.0.1:2379 --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key --requestheader-allowed-names=front-proxy-client --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt --requestheader-extra-headers-prefix=X-Remote-Extra- --requestheader-group-headers=X-Remote-Group --requestheader-username-headers=X-Remote-User --secure-port=6443 --service-account-issuer=https://kubernetes.default.svc.cluster.local --service-account-key-file=/etc/kubernetes/pki/sa.pub --service-account-signing-key-file=/etc/kubernetes/pki/sa.key --service-cluster-ip-range=10.96.0.0/12 --tls-cert-file=/etc/kubernetes/pki/apiserver.crt --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
+root        4616    4443  1 23:23 ?        00:00:02 kube-scheduler --authentication-kubeconfig=/etc/kubernetes/scheduler.conf --authorization-kubeconfig=/etc/kubernetes/scheduler.conf --bind-address=127.0.0.1 --kubeconfig=/etc/kubernetes/scheduler.conf --leader-elect=true
+root        4630    4422  5 23:23 ?        00:00:09 etcd --advertise-client-urls=https://192.168.1.105:2379 --cert-file=/etc/kubernetes/pki/etcd/server.crt --client-cert-auth=true --data-dir=/var/lib/etcd --experimental-initial-corrupt-check=true --experimental-watch-progress-notify-interval=5s --initial-advertise-peer-urls=https://192.168.1.105:2380 --initial-cluster=k8s-controller-01=https://192.168.1.105:2380 --key-file=/etc/kubernetes/pki/etcd/server.key --listen-client-urls=https://127.0.0.1:2379,https://192.168.1.105:2379 --listen-metrics-urls=http://127.0.0.1:2381 --listen-peer-urls=https://192.168.1.105:2380 --name=k8s-controller-01 --peer-cert-file=/etc/kubernetes/pki/etcd/peer.crt --peer-client-cert-auth=true --peer-key-file=/etc/kubernetes/pki/etcd/peer.key --peer-trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt --snapshot-count=10000 --trusted-ca-file=/etc/kubernetes/pki/etcd/ca.crt
+root        4863       1  6 23:23 ?        00:00:10 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --config=/var/lib/kubelet/config.yaml --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock --pod-infra-container-image=registry.k8s.io/pause:3.9
+root        4963    4912  0 23:23 ?        00:00:00 /usr/local/bin/kube-proxy --config=/var/lib/kube-proxy/config.conf --hostname-override=k8s-controller-01
+sre         5153    1194  0 23:26 pts/0    00:00:00 grep --color=auto kube
+
+sre@k8s-controller-01:~$ systemctl status kubelet
+● kubelet.service - kubelet: The Kubernetes Node Agent
+     Loaded: loaded (/usr/lib/systemd/system/kubelet.service; enabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+     Active: active (running) since Wed 2024-10-23 23:23:08 UTC; 3min 18s ago
+       Docs: https://kubernetes.io/docs/
+   Main PID: 4863 (kubelet)
+      Tasks: 11 (limit: 2276)
+     Memory: 33.6M (peak: 34.0M)
+        CPU: 11.519s
+     CGroup: /system.slice/kubelet.service
+             └─4863 /usr/bin/kubelet --bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf --conf>
+
+Oct 23 23:25:58 k8s-controller-01 kubelet[4863]: E1023 23:25:58.820893    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+Oct 23 23:26:03 k8s-controller-01 kubelet[4863]: E1023 23:26:03.826627    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.660147    4863 remote_runtime.go:222] "StopPodSandbox from runtime service failed" >
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.660182    4863 kuberuntime_gc.go:180] "Failed to stop sandbox before removing" err=>
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.660799    4863 remote_runtime.go:222] "StopPodSandbox from runtime service failed" >
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.660823    4863 kuberuntime_gc.go:180] "Failed to stop sandbox before removing" err=>
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.828233    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+Oct 23 23:26:13 k8s-controller-01 kubelet[4863]: E1023 23:26:13.831338    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+Oct 23 23:26:18 k8s-controller-01 kubelet[4863]: E1023 23:26:18.834384    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+Oct 23 23:26:23 k8s-controller-01 kubelet[4863]: E1023 23:26:23.838987    4863 kubelet.go:2874] "Container runtime network not ready" networkReady=>
+sre@k8s-controller-01:~$ 
+
+sre@k8s-controller-01:~$ journalctl -xe --unit kubelet
+Oct 23 23:26:08 k8s-controller-01 kubelet[4863]: E1023 23:26:08.828233    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:13 k8s-controller-01 kubelet[4863]: E1023 23:26:13.831338    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:18 k8s-controller-01 kubelet[4863]: E1023 23:26:18.834384    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:23 k8s-controller-01 kubelet[4863]: E1023 23:26:23.838987    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:28 k8s-controller-01 kubelet[4863]: E1023 23:26:28.841146    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:33 k8s-controller-01 kubelet[4863]: E1023 23:26:33.844076    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:38 k8s-controller-01 kubelet[4863]: E1023 23:26:38.846195    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:43 k8s-controller-01 kubelet[4863]: E1023 23:26:43.848548    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:48 k8s-controller-01 kubelet[4863]: E1023 23:26:48.851062    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:53 k8s-controller-01 kubelet[4863]: E1023 23:26:53.854988    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:26:58 k8s-controller-01 kubelet[4863]: E1023 23:26:58.858266    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:03 k8s-controller-01 kubelet[4863]: E1023 23:27:03.861246    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:08 k8s-controller-01 kubelet[4863]: E1023 23:27:08.668522    4863 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c>
+Oct 23 23:27:08 k8s-controller-01 kubelet[4863]: E1023 23:27:08.668558    4863 kuberuntime_gc.go:180] "Failed to stop sandbox before removing" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e2>
+Oct 23 23:27:08 k8s-controller-01 kubelet[4863]: E1023 23:27:08.670284    4863 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d92>
+Oct 23 23:27:08 k8s-controller-01 kubelet[4863]: E1023 23:27:08.670347    4863 kuberuntime_gc.go:180] "Failed to stop sandbox before removing" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245ba>
+Oct 23 23:27:08 k8s-controller-01 kubelet[4863]: E1023 23:27:08.865132    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:13 k8s-controller-01 kubelet[4863]: E1023 23:27:13.867472    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:18 k8s-controller-01 kubelet[4863]: E1023 23:27:18.869636    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:23 k8s-controller-01 kubelet[4863]: E1023 23:27:23.873056    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:28 k8s-controller-01 kubelet[4863]: E1023 23:27:28.875928    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:33 k8s-controller-01 kubelet[4863]: E1023 23:27:33.878939    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+Oct 23 23:27:38 k8s-controller-01 kubelet[4863]: E1023 23:27:38.882101    4863 kubelet.go:2874] "Container runtime network not ready" networkReady="NetworkReady=false reason:NetworkPluginNotReady message:Network plugin returns error: cni plugin not initialized"
+sre@k8s-controller-01:~$ 
+
+

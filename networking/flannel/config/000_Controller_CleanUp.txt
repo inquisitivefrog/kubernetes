@@ -1,0 +1,60 @@
+
+sre@k8s-controller-01:~$ sudo kubeadm reset phase cleanup-node
+[reset] Reading configuration from the cluster...
+[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+W1023 23:02:31.467322    2680 reset.go:120] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get "https://192.168.1.103:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s": dial tcp 192.168.1.103:6443: connect: no route to host
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in "/var/lib/kubelet"
+W1023 23:02:33.344601    2680 cleanupnode.go:99] [reset] Failed to remove containers: [failed to stop running pod fda65177d25f4f05d8f5f3e313065208a65f4055b8621bb84cc34c8130153cce: output: E1023 23:02:31.764461    2736 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err=<
+	rpc error: code = Unknown desc = failed to stop container "000bc663cc9bf486596b325a5ac496840cb4debf00318f39e65c3488809c2676": failed to kill container "000bc663cc9bf486596b325a5ac496840cb4debf00318f39e65c3488809c2676": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied
+	: unknown
+ > podSandboxID="fda65177d25f4f05d8f5f3e313065208a65f4055b8621bb84cc34c8130153cce"
+time="2024-10-23T23:02:31Z" level=fatal msg="stopping the pod sandbox \"fda65177d25f4f05d8f5f3e313065208a65f4055b8621bb84cc34c8130153cce\": rpc error: code = Unknown desc = failed to stop container \"000bc663cc9bf486596b325a5ac496840cb4debf00318f39e65c3488809c2676\": failed to kill container \"000bc663cc9bf486596b325a5ac496840cb4debf00318f39e65c3488809c2676\": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied\n: unknown"
+: exit status 1, failed to stop running pod 3f2a5fe41143c838b8ff7f2712fc24c20d25345b48c3f6db125fca4aefd40b84: output: E1023 23:02:32.021919    2790 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err=<
+	rpc error: code = Unknown desc = failed to stop container "73246339f24817f89ab8474946557a3f50d3312e49fd2ee1402224d2d3ea441a": failed to kill container "73246339f24817f89ab8474946557a3f50d3312e49fd2ee1402224d2d3ea441a": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied
+	: unknown
+ > podSandboxID="3f2a5fe41143c838b8ff7f2712fc24c20d25345b48c3f6db125fca4aefd40b84"
+time="2024-10-23T23:02:32Z" level=fatal msg="stopping the pod sandbox \"3f2a5fe41143c838b8ff7f2712fc24c20d25345b48c3f6db125fca4aefd40b84\": rpc error: code = Unknown desc = failed to stop container \"73246339f24817f89ab8474946557a3f50d3312e49fd2ee1402224d2d3ea441a\": failed to kill container \"73246339f24817f89ab8474946557a3f50d3312e49fd2ee1402224d2d3ea441a\": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied\n: unknown"
+: exit status 1, failed to stop running pod 3f585f785ef7b5947f749249a861f470bda90b59354cf230f47007b322ce7675: output: E1023 23:02:32.277516    2844 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err=<
+	rpc error: code = Unknown desc = failed to stop container "ff17c1756e0b544759ad7ad35dd7f1db6e3b5f22bc80667880c12374d1619607": failed to kill container "ff17c1756e0b544759ad7ad35dd7f1db6e3b5f22bc80667880c12374d1619607": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied
+	: unknown
+ > podSandboxID="3f585f785ef7b5947f749249a861f470bda90b59354cf230f47007b322ce7675"
+time="2024-10-23T23:02:32Z" level=fatal msg="stopping the pod sandbox \"3f585f785ef7b5947f749249a861f470bda90b59354cf230f47007b322ce7675\": rpc error: code = Unknown desc = failed to stop container \"ff17c1756e0b544759ad7ad35dd7f1db6e3b5f22bc80667880c12374d1619607\": failed to kill container \"ff17c1756e0b544759ad7ad35dd7f1db6e3b5f22bc80667880c12374d1619607\": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied\n: unknown"
+: exit status 1, failed to stop running pod 80f4d93df59b50e8fcc5b5b96aa7f80dea9144f68bda3893c966f0124f5415da: output: E1023 23:02:32.509164    2900 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err=<
+	rpc error: code = Unknown desc = failed to stop container "d6dca9769ef1b5260ea0a576d249516f5d6f5c25fa58cb3198ecf96283aeda3a": failed to kill container "d6dca9769ef1b5260ea0a576d249516f5d6f5c25fa58cb3198ecf96283aeda3a": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied
+	: unknown
+ > podSandboxID="80f4d93df59b50e8fcc5b5b96aa7f80dea9144f68bda3893c966f0124f5415da"
+time="2024-10-23T23:02:32Z" level=fatal msg="stopping the pod sandbox \"80f4d93df59b50e8fcc5b5b96aa7f80dea9144f68bda3893c966f0124f5415da\": rpc error: code = Unknown desc = failed to stop container \"d6dca9769ef1b5260ea0a576d249516f5d6f5c25fa58cb3198ecf96283aeda3a\": failed to kill container \"d6dca9769ef1b5260ea0a576d249516f5d6f5c25fa58cb3198ecf96283aeda3a\": unknown error after kill: runc did not terminate successfully: exit status 1: unable to signal init: permission denied\n: unknown"
+: exit status 1, failed to stop running pod 3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245bac5246000fe7fb566: output: E1023 23:02:32.701988    2928 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245bac5246000fe7fb566\": cni plugin not initialized" podSandboxID="3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245bac5246000fe7fb566"
+time="2024-10-23T23:02:32Z" level=fatal msg="stopping the pod sandbox \"3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245bac5246000fe7fb566\": rpc error: code = Unknown desc = failed to destroy network for sandbox \"3491d5c1d768511ba1c664cceb2ff2d17ad6a9858d9245bac5246000fe7fb566\": cni plugin not initialized"
+: exit status 1, failed to stop running pod a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e29950cc135bc45477: output: E1023 23:02:32.859314    2953 remote_runtime.go:222] "StopPodSandbox from runtime service failed" err="rpc error: code = Unknown desc = failed to destroy network for sandbox \"a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e29950cc135bc45477\": cni plugin not initialized" podSandboxID="a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e29950cc135bc45477"
+time="2024-10-23T23:02:32Z" level=fatal msg="stopping the pod sandbox \"a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e29950cc135bc45477\": rpc error: code = Unknown desc = failed to destroy network for sandbox \"a9b84b263cfed50ca30c8fd3f8c556508f69be734b5c08e29950cc135bc45477\": cni plugin not initialized"
+: exit status 1]
+[reset] Deleting contents of directories: [/etc/kubernetes/manifests /var/lib/kubelet /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+sre@k8s-controller-01:~$ kubectl -n kube-system get cm kubeadm-config -o yaml
+Unable to connect to the server: tls: failed to verify certificate: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+
+sre@k8s-controller-01:~$ systemctl status kubelet
+○ kubelet.service - kubelet: The Kubernetes Node Agent
+     Loaded: loaded (/usr/lib/systemd/system/kubelet.service; enabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+     Active: inactive (dead) since Wed 2024-10-23 23:02:31 UTC; 2min 30s ago
+   Duration: 11min 39.713s
+       Docs: https://kubernetes.io/docs/
+    Process: 2199 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS (code=exited, status=0/SUCCE>
+   Main PID: 2199 (code=exited, status=0/SUCCESS)
+        CPU: 24.291s
+
+Oct 23 23:02:22 k8s-controller-01 kubelet[2199]: E1023 23:02:22.412144    2199 eviction_manager.go:258] "Eviction manager: failed to get summary stats" err="fail>
+Oct 23 23:02:24 k8s-controller-01 kubelet[2199]: I1023 23:02:24.903005    2199 kubelet_node_status.go:70] "Attempting to register node" node="controller"
+Oct 23 23:02:25 k8s-controller-01 kubelet[2199]: E1023 23:02:25.001623    2199 kubelet_node_status.go:92] "Unable to register node with API server" err="Post \"h>
+Oct 23 23:02:25 k8s-controller-01 kubelet[2199]: E1023 23:02:25.001895    2199 controller.go:146] "Failed to ensure lease exists, will retry" err="Get \"https://>
+Oct 23 23:02:28 k8s-controller-01 kubelet[2199]: E1023 23:02:28.140349    2199 event.go:289] Unable to write event: '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIV>
+Oct 23 23:02:31 k8s-controller-01 kubelet[2199]: I1023 23:02:31.479345    2199 dynamic_cafile_content.go:171] "Shutting down controller" name="client-ca-bundle::>
+Oct 23 23:02:31 k8s-controller-01 systemd[1]: Stopping kubelet.service - kubelet: The Kubernetes Node Agent...
+Oct 23 23:02:31 k8s-controller-01 systemd[1]: kubelet.service: Deactivated successfully.
+Oct 23 23:02:31 k8s-controller-01 systemd[1]: Stopped kubelet.service - kubelet: The Kubernetes Node Agent.
+Oct 23 23:02:31 k8s-controller-01 systemd[1]: kubelet.service: Consumed 24.291s CPU time, 33.9M memory peak, 0B memory swap peak.
+

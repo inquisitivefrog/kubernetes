@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"rbac.authorization.k8s.io/v1","kind":"Role","metadata":{"annotations":{},"name":"contour-certgen","namespace":"projectcontour"},"rules":[{"apiGroups":[""],"resources":["secrets"],"verbs":["create","update"]}]}
+  creationTimestamp: "2024-11-25T18:52:52Z"
+  name: contour-certgen
+  namespace: projectcontour
+  resourceVersion: "134065"
+  uid: 267afca7-a9df-4d79-ac59-061358105083
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - update

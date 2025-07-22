@@ -1,0 +1,42 @@
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+timeserver-6b858dd65b-4qzd5   1/1     Running   0          19h
+timeserver-6b858dd65b-c657m   1/1     Running   0          19h
+timeserver-6b858dd65b-q4dkn   1/1     Running   0          19h
+timeserver-6b858dd65b-t58mk   1/1     Running   0          19h
+tim@Tims-MBP 3.4.3_LocalDevelopment % vi deploy.yaml 
+tim@Tims-MBP 3.4.3_LocalDevelopment % cat deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timeserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      pod: timeserver-pod
+  template:
+    metadata:
+      labels:
+        pod: timeserver-pod
+    spec:
+      containers:
+      - name: timeserver-container
+        image: timeserver:latest
+        imagePullPolicy: Never
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl apply -f deploy.yaml 
+deployment.apps/timeserver configured
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get pods            
+NAME                          READY   STATUS        RESTARTS   AGE
+timeserver-6b858dd65b-4qzd5   1/1     Running       0          19h
+timeserver-6b858dd65b-c657m   1/1     Terminating   0          19h
+timeserver-6b858dd65b-q4dkn   1/1     Running       0          19h
+timeserver-6b858dd65b-t58mk   1/1     Running       0          19h
+tim@Tims-MBP 3.4.3_LocalDevelopment % sleep 30
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+timeserver-6b858dd65b-4qzd5   1/1     Running   0          19h
+timeserver-6b858dd65b-q4dkn   1/1     Running   0          19h
+timeserver-6b858dd65b-t58mk   1/1     Running   0          19h
+

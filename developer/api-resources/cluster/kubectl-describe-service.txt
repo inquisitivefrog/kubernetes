@@ -1,0 +1,35 @@
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get service       
+NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP        20h
+timeserver   LoadBalancer   10.109.93.188   <pending>     80:31010/TCP   20h
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl describe service
+Name:              kubernetes
+Namespace:         default
+Labels:            component=apiserver
+                   provider=kubernetes
+Annotations:       <none>
+Selector:          <none>
+Type:              ClusterIP
+IP:                10.96.0.1
+Port:              https  443/TCP
+TargetPort:        6443/TCP
+Endpoints:         192.168.65.3:6443
+Session Affinity:  None
+
+
+Name:                     timeserver
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 pod=timeserver-pod
+Type:                     LoadBalancer
+IP:                       10.109.93.188
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  31010/TCP
+Endpoints:                10.1.0.13:80,10.1.0.14:80,10.1.0.16:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+

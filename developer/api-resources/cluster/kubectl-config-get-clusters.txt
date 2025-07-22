@@ -1,0 +1,5 @@
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl config get-clusters   
+NAME
+docker-desktop
+minikube
+

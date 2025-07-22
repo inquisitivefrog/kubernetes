@@ -1,0 +1,6 @@
+
+sre@k8s-controller-01:~$ sudo kubeadm reset phase preflight
+W1023 23:07:04.133025    3108 preflight.go:56] [reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
+[preflight] Running pre-flight checks
+

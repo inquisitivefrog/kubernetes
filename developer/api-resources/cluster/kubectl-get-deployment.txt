@@ -1,0 +1,4 @@
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get deployment
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+timeserver   4/4     4            4           10m
+

@@ -1,0 +1,48 @@
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get namespace         
+NAME              STATUS   AGE
+default           Active   20h
+kube-node-lease   Active   20h
+kube-public       Active   20h
+kube-system       Active   20h
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl describe namespace
+Name:         default
+Labels:       kubernetes.io/metadata.name=default
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No resource limits.
+
+
+Name:         kube-node-lease
+Labels:       kubernetes.io/metadata.name=kube-node-lease
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No resource limits.
+
+
+Name:         kube-public
+Labels:       kubernetes.io/metadata.name=kube-public
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No resource limits.
+
+
+Name:         kube-system
+Labels:       kubernetes.io/metadata.name=kube-system
+Annotations:  <none>
+Status:       Active
+
+No resource quota.
+
+No resource limits.
+

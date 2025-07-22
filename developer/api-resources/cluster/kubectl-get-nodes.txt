@@ -1,0 +1,23 @@
+tim@Tims-MBP 3.4.3_LocalDevelopment % cat deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timeserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      pod: timeserver-pod
+  template:
+    metadata:
+      labels:
+        pod: timeserver-pod
+    spec:
+      containers:
+      - name: timeserver-container
+        image: timeserver:latest
+        imagePullPolicy: Never
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get nodes
+NAME             STATUS   ROLES           AGE   VERSION
+docker-desktop   Ready    control-plane   42m   v1.30.2
+

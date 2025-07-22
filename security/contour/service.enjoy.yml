@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"service.beta.kubernetes.io/aws-load-balancer-backend-protocol":"tcp"},"name":"envoy","namespace":"projectcontour"},"spec":{"externalTrafficPolicy":"Local","ports":[{"name":"http","port":80,"protocol":"TCP","targetPort":8080},{"name":"https","port":443,"protocol":"TCP","targetPort":8443}],"selector":{"app":"envoy"},"type":"LoadBalancer"}}
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+  creationTimestamp: "2024-11-25T18:52:52Z"
+  name: envoy
+  namespace: projectcontour
+  resourceVersion: "134085"
+  uid: 6c4ad2dd-c1bf-4aa4-a9e4-87f835381678
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.98.92.188
+  clusterIPs:
+  - 10.98.92.188
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 30931
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 32033
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    nodePort: 30369
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  selector:
+    app: envoy
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

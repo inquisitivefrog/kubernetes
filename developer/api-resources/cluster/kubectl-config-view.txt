@@ -1,0 +1,68 @@
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % cat deploy.yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timeserver
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      pod: timeserver-pod
+  template:
+    metadata:
+      labels:
+        pod: timeserver-pod
+    spec:
+      containers:
+      - name: timeserver-container
+        image: timeserver:latest
+        imagePullPolicy: Never
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % cat svc.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: timeserver
+spec:
+  selector:
+    pod: timeserver-pod
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  type: LoadBalancer
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: DATA+OMITTED
+    server: https://kubernetes.docker.internal:6443
+  name: docker-desktop
+- cluster:
+    certificate-authority: /Users/tim/.minikube/ca.crt
+    server: https://192.168.99.100:8443
+  name: minikube
+contexts:
+- context:
+    cluster: docker-desktop
+    user: docker-desktop
+  name: docker-desktop
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: docker-desktop
+kind: Config
+preferences: {}
+users:
+- name: docker-desktop
+  user:
+    client-certificate-data: REDACTED
+    client-key-data: REDACTED
+- name: minikube
+  user:
+    client-certificate: /Users/tim/.minikube/client.crt
+    client-key: /Users/tim/.minikube/client.key
+

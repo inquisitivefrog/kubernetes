@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  demo.conf: |
+    server { location /demo { return 200 "hello world"}}
+kind: ConfigMap
+metadata:
+  name: nginx-demo
+  namespace: default

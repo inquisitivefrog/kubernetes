@@ -1,0 +1,36 @@
+
+Things to Try
+-------------
+1. kubectl resource-capacity --sort cpu.limit --util --pods
+2. shell script
+res=$(kubectl get pods -o=jsonpath='{.items[*]..resources.limits.cpu}' -A)
+let tot=0
+for i in $res
+do
+   if [[ $i =~ "m" ]]; then
+      i=$(echo $i | sed 's/[^0-9]*//g')
+      tot=$(( tot + i ))
+   else
+      tot=$(( tot + i*1000 ))
+   fi
+done
+echo $tot
+
+3. command
+kubectl get pods --namespace <your-namespace> --no-headers=true \
+  -o custom-columns='NAME:.metadata.name, CPU_REQUEST:.spec.containers[*].resources.requests.cpu, MEMORY_REQUEST:.spec.containers[*].resources.requests.memory' \
+  | awk 'BEGIN {cpu=0; memory=0} {cpu+=$2; memory+=$3} END {print "Total CPU Requests: " cpu "\nTotal Memory Requests: " memory}'
+
+4. command
+kubectl get pods -A -o json | jq '.items[].spec.containers[]?.resources.requests.cpu' | sed -r 's/([0-9]*)m/\.\1/' | sed -e 's/"//g' -e 's/,//g' | paste -sd+ - | bc
+
+5. command
+kubectl get pods -A -o json | jq '.items[].spec.containers[]?.resources.requests.memory' | sed -r 's/"([0-9]*)M"/\1/g' | sed -r 's/"([0-9]*)Mi"/\1/g' | sed -r 's/"([0-9]*)Gi"/\1000/g' | sed -r 's/"([0-9]*)G"/\1000/g' | sed 's/null/0/g' |  paste -sd+ - | bc | sed 's/$/Mi/'
+
+6. command
+kubectl get pods -o=jsonpath-as-json='{.items..containers..resources.requests}' -A | jq "([.[].cpu[0:-1] | tonumber] | add) / 1000 / 4"
+
+7. kube-capacity
+kubectl resource-capacity --sort cpu.limit --util --pods
+https://github.com/robscott/kube-capacity
+

@@ -1,8 +1,11 @@
 # kubernetes
 
 Kubernetes Control Plane
-
-Kubernetes 
+./control-plan
+./networking
+./developer
+./monitoring
+./security
 
 Examples of Simple Applications deployed using Kubernetes and Docker
 

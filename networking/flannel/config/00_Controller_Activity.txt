@@ -1,0 +1,663 @@
+
+tim@Tims-MBP ~ % ssh sre@k8s-controller-01
+sre@k8s-controller-01:~$ ps -ef | grep flannel
+sre         1205    1194  0 22:40 pts/0    00:00:00 grep --color=auto flannel
+sre@k8s-controller-01:~$ ps -ef | grep weave
+sre         1209    1194  0 22:40 pts/0    00:00:00 grep --color=auto weave
+sre@k8s-controller-01:~$ sudo apt-get install -y containerd
+[sudo] password for sre: 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  bridge-utils conntrack cri-tools dns-root-data dnsmasq-base kubernetes-cni pigz ubuntu-fan
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  containerd
+0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+Need to get 0 B/38.6 MB of archives.
+After this operation, 140 MB of additional disk space will be used.
+Selecting previously unselected package containerd.
+(Reading database ... 83715 files and directories currently installed.)
+Preparing to unpack .../containerd_1.7.12-0ubuntu4.1_amd64.deb ...
+Unpacking containerd (1.7.12-0ubuntu4.1) ...
+Setting up containerd (1.7.12-0ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...                                                                                                     
+Scanning linux images...                                                                                                  
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+sre@k8s-controller-01:~$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+sre@k8s-controller-01:~$ ls -l /var/log/containers
+ls: cannot access '/var/log/containers': No such file or directory
+sre@k8s-controller-01:~$ ls -l /var/log/container
+ls: cannot access '/var/log/container': No such file or directory
+sre@k8s-controller-01:~$ sudo mkdir /etc/containerd
+sre@k8s-controller-01:~$ cat /etc/containerd/config.toml
+disabled_plugins = []
+imports = []
+oom_score = 0
+plugin_dir = ""
+required_plugins = []
+root = "/var/lib/containerd"
+state = "/run/containerd"
+temp = ""
+version = 2
+
+[cgroup]
+  path = ""
+
+[debug]
+  address = ""
+  format = ""
+  gid = 0
+  level = ""
+  uid = 0
+
+[grpc]
+  address = "/run/containerd/containerd.sock"
+  gid = 0
+  max_recv_message_size = 16777216
+  max_send_message_size = 16777216
+  tcp_address = ""
+  tcp_tls_ca = ""
+  tcp_tls_cert = ""
+  tcp_tls_key = ""
+  uid = 0
+
+[metrics]
+  address = ""
+  grpc_histogram = false
+
+[plugins]
+
+  [plugins."io.containerd.gc.v1.scheduler"]
+    deletion_threshold = 0
+    mutation_threshold = 100
+    pause_threshold = 0.02
+    schedule_delay = "0s"
+    startup_delay = "100ms"
+
+  [plugins."io.containerd.grpc.v1.cri"]
+    cdi_spec_dirs = ["/etc/cdi", "/var/run/cdi"]
+    device_ownership_from_security_context = false
+    disable_apparmor = false
+    disable_cgroup = false
+    disable_hugetlb_controller = true
+    disable_proc_mount = false
+    disable_tcp_service = true
+    drain_exec_sync_io_timeout = "0s"
+    enable_cdi = false
+    enable_selinux = false
+    enable_tls_streaming = false
+    enable_unprivileged_icmp = false
+    enable_unprivileged_ports = false
+    ignore_image_defined_volumes = false
+    image_pull_progress_timeout = "5m0s"
+    max_concurrent_downloads = 3
+    max_container_log_line_size = 16384
+    netns_mounts_under_state_dir = false
+    restrict_oom_score_adj = false
+    sandbox_image = "registry.k8s.io/pause:3.8"
+    selinux_category_range = 1024
+    stats_collect_period = 10
+    stream_idle_timeout = "4h0m0s"
+    stream_server_address = "127.0.0.1"
+    stream_server_port = "0"
+    systemd_cgroup = false
+    tolerate_missing_hugetlb_controller = true
+    unset_seccomp_profile = ""
+
+    [plugins."io.containerd.grpc.v1.cri".cni]
+      bin_dir = "/opt/cni/bin"
+      conf_dir = "/etc/cni/net.d"
+      conf_template = ""
+      ip_pref = ""
+      max_conf_num = 1
+      setup_serially = false
+
+    [plugins."io.containerd.grpc.v1.cri".containerd]
+      default_runtime_name = "runc"
+      disable_snapshot_annotations = true
+      discard_unpacked_layers = false
+      ignore_blockio_not_enabled_errors = false
+      ignore_rdt_not_enabled_errors = false
+      no_pivot = false
+      snapshotter = "overlayfs"
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.default_runtime]
+        base_runtime_spec = ""
+        cni_conf_dir = ""
+        cni_max_conf_num = 0
+        container_annotations = []
+        pod_annotations = []
+        privileged_without_host_devices = false
+        privileged_without_host_devices_all_devices_allowed = false
+        runtime_engine = ""
+        runtime_path = ""
+        runtime_root = ""
+        runtime_type = ""
+        sandbox_mode = ""
+        snapshotter = ""
+
+        [plugins."io.containerd.grpc.v1.cri".containerd.default_runtime.options]
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          base_runtime_spec = ""
+          cni_conf_dir = ""
+          cni_max_conf_num = 0
+          container_annotations = []
+          pod_annotations = []
+          privileged_without_host_devices = false
+          privileged_without_host_devices_all_devices_allowed = false
+          runtime_engine = ""
+          runtime_path = ""
+          runtime_root = ""
+          runtime_type = "io.containerd.runc.v2"
+          sandbox_mode = "podsandbox"
+          snapshotter = ""
+
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+            BinaryName = ""
+            CriuImagePath = ""
+            CriuPath = ""
+            CriuWorkPath = ""
+            IoGid = 0
+            IoUid = 0
+            NoNewKeyring = false
+            NoPivotRoot = false
+            Root = ""
+            ShimCgroup = ""
+            SystemdCgroup = true
+
+      [plugins."io.containerd.grpc.v1.cri".containerd.untrusted_workload_runtime]
+        base_runtime_spec = ""
+        cni_conf_dir = ""
+        cni_max_conf_num = 0
+        container_annotations = []
+        pod_annotations = []
+        privileged_without_host_devices = false
+        privileged_without_host_devices_all_devices_allowed = false
+        runtime_engine = ""
+        runtime_path = ""
+        runtime_root = ""
+        runtime_type = ""
+        sandbox_mode = ""
+        snapshotter = ""
+
+        [plugins."io.containerd.grpc.v1.cri".containerd.untrusted_workload_runtime.options]
+
+    [plugins."io.containerd.grpc.v1.cri".image_decryption]
+      key_model = "node"
+
+    [plugins."io.containerd.grpc.v1.cri".registry]
+      config_path = ""
+
+      [plugins."io.containerd.grpc.v1.cri".registry.auths]
+
+      [plugins."io.containerd.grpc.v1.cri".registry.configs]
+
+      [plugins."io.containerd.grpc.v1.cri".registry.headers]
+
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+
+    [plugins."io.containerd.grpc.v1.cri".x509_key_pair_streaming]
+      tls_cert_file = ""
+      tls_key_file = ""
+
+  [plugins."io.containerd.internal.v1.opt"]
+    path = "/opt/containerd"
+
+  [plugins."io.containerd.internal.v1.restart"]
+    interval = "10s"
+
+  [plugins."io.containerd.internal.v1.tracing"]
+    sampling_ratio = 1.0
+    service_name = "containerd"
+
+  [plugins."io.containerd.metadata.v1.bolt"]
+    content_sharing_policy = "shared"
+
+  [plugins."io.containerd.monitor.v1.cgroups"]
+    no_prometheus = false
+
+  [plugins."io.containerd.nri.v1.nri"]
+    disable = true
+    disable_connections = false
+    plugin_config_path = "/etc/nri/conf.d"
+    plugin_path = "/opt/nri/plugins"
+    plugin_registration_timeout = "5s"
+    plugin_request_timeout = "2s"
+    socket_path = "/var/run/nri/nri.sock"
+
+  [plugins."io.containerd.runtime.v1.linux"]
+    no_shim = false
+    runtime = "runc"
+    runtime_root = ""
+    shim = "containerd-shim"
+    shim_debug = false
+
+  [plugins."io.containerd.runtime.v2.task"]
+    platforms = ["linux/amd64"]
+    sched_core = false
+
+  [plugins."io.containerd.service.v1.diff-service"]
+    default = ["walking"]
+
+  [plugins."io.containerd.service.v1.tasks-service"]
+    blockio_config_file = ""
+    rdt_config_file = ""
+
+  [plugins."io.containerd.snapshotter.v1.aufs"]
+    root_path = ""
+
+  [plugins."io.containerd.snapshotter.v1.blockfile"]
+    fs_type = ""
+    mount_options = []
+    root_path = ""
+    scratch_file = ""
+
+  [plugins."io.containerd.snapshotter.v1.btrfs"]
+    root_path = ""
+
+  [plugins."io.containerd.snapshotter.v1.devmapper"]
+    async_remove = false
+    base_image_size = ""
+    discard_blocks = false
+    fs_options = ""
+    fs_type = ""
+    pool_name = ""
+    root_path = ""
+
+  [plugins."io.containerd.snapshotter.v1.native"]
+    root_path = ""
+
+  [plugins."io.containerd.snapshotter.v1.overlayfs"]
+    mount_options = []
+    root_path = ""
+    sync_remove = false
+    upperdir_label = false
+
+  [plugins."io.containerd.snapshotter.v1.zfs"]
+    root_path = ""
+
+  [plugins."io.containerd.tracing.processor.v1.otlp"]
+    endpoint = ""
+    insecure = false
+    protocol = ""
+
+  [plugins."io.containerd.transfer.v1.local"]
+    config_path = ""
+    max_concurrent_downloads = 3
+    max_concurrent_uploaded_layers = 3
+
+    [[plugins."io.containerd.transfer.v1.local".unpack_config]]
+      differ = ""
+      platform = "linux/amd64"
+      snapshotter = "overlayfs"
+
+[proxy_plugins]
+
+[stream_processors]
+
+  [stream_processors."io.containerd.ocicrypt.decoder.v1.tar"]
+    accepts = ["application/vnd.oci.image.layer.v1.tar+encrypted"]
+    args = ["--decryption-keys-path", "/etc/containerd/ocicrypt/keys"]
+    env = ["OCICRYPT_KEYPROVIDER_CONFIG=/etc/containerd/ocicrypt/ocicrypt_keyprovider.conf"]
+    path = "ctd-decoder"
+    returns = "application/vnd.oci.image.layer.v1.tar"
+
+  [stream_processors."io.containerd.ocicrypt.decoder.v1.tar.gzip"]
+    accepts = ["application/vnd.oci.image.layer.v1.tar+gzip+encrypted"]
+    args = ["--decryption-keys-path", "/etc/containerd/ocicrypt/keys"]
+    env = ["OCICRYPT_KEYPROVIDER_CONFIG=/etc/containerd/ocicrypt/ocicrypt_keyprovider.conf"]
+    path = "ctd-decoder"
+    returns = "application/vnd.oci.image.layer.v1.tar+gzip"
+
+[timeouts]
+  "io.containerd.timeout.bolt.open" = "0s"
+  "io.containerd.timeout.metrics.shimstats" = "2s"
+  "io.containerd.timeout.shim.cleanup" = "5s"
+  "io.containerd.timeout.shim.load" = "5s"
+  "io.containerd.timeout.shim.shutdown" = "3s"
+  "io.containerd.timeout.task.state" = "2s"
+
+[ttrpc]
+  address = ""
+  gid = 0
+  uid = 0
+
+sre@k8s-controller-01:~$ free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1967         393         983           1         747        1574
+Swap:              0           0           0
+sre@k8s-controller-01:~$ sysctl net.bridge
+net.bridge.bridge-nf-call-arptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-filter-pppoe-tagged = 0
+net.bridge.bridge-nf-filter-vlan-tagged = 0
+net.bridge.bridge-nf-pass-vlan-input-dev = 0
+sre@k8s-controller-01:~$ sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 1
+sre@k8s-controller-01:~$ cat /etc/modules-load.d/k8s.conf 
+overlay
+br_netfilter
+
+sre@k8s-controller-01:~$ systemctl status containerd
+● containerd.service - containerd container runtime
+     Loaded: loaded (/usr/lib/systemd/system/containerd.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2024-10-23 22:42:35 UTC; 1min 8s ago
+       Docs: https://containerd.io
+    Process: 1315 ExecStartPre=/sbin/modprobe overlay (code=exited, status=0/SUCCESS)
+   Main PID: 1316 (containerd)
+      Tasks: 15
+     Memory: 23.1M (peak: 25.0M)
+        CPU: 481ms
+     CGroup: /system.slice/containerd.service
+             └─1316 /usr/bin/containerd
+
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795264633Z" level=info msg=serving... addre>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795323351Z" level=info msg=serving... addre>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795529861Z" level=info msg="Start subscribi>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795567461Z" level=info msg="Start recoverin>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990070228Z" level=info msg="Start event mon>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990286025Z" level=info msg="Start snapshots>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990302649Z" level=info msg="Start cni netwo>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990309359Z" level=info msg="Start streaming>
+Oct 23 22:42:35 k8s-controller-01 systemd[1]: Started containerd.service - containerd container runtime.
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.994075455Z" level=info msg="containerd succ>
+
+sre@k8s-controller-01:~$ journalctl -xe --unit containerd
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.792980989Z" level=info msg="Start cri plugin with config {PluginConfig:{ContainerdC>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.793053441Z" level=info msg="Connect containerd service"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.793090266Z" level=info msg="using legacy CRI server"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.793097288Z" level=info msg="using experimental NRI integration - disable nri plugin>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.793318721Z" level=info msg="Get image filesystem path \"/var/lib/containerd/io.cont>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795034986Z" level=error msg="failed to load cni during init, please check CRI plugi>
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795264633Z" level=info msg=serving... address=/run/containerd/containerd.sock.ttrpc
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795323351Z" level=info msg=serving... address=/run/containerd/containerd.sock
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795529861Z" level=info msg="Start subscribing containerd event"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.795567461Z" level=info msg="Start recovering state"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990070228Z" level=info msg="Start event monitor"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990286025Z" level=info msg="Start snapshots syncer"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990302649Z" level=info msg="Start cni network conf syncer for default"
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.990309359Z" level=info msg="Start streaming server"
+Oct 23 22:42:35 k8s-controller-01 systemd[1]: Started containerd.service - containerd container runtime.
+░░ Subject: A start job for unit containerd.service has finished successfully
+░░ Defined-By: systemd
+░░ Support: http://www.ubuntu.com/support
+░░ 
+░░ A start job for unit containerd.service has finished successfully.
+░░ 
+░░ The job identifier is 1194.
+Oct 23 22:42:35 k8s-controller-01 containerd[1316]: time="2024-10-23T22:42:35.994075455Z" level=info msg="containerd successfully booted in 0.440211s"
+
+sre@k8s-controller-01:~$ sudo find /etc/cni
+/etc/cni
+/etc/cni/net.d
+sre@k8s-controller-01:~$ sudo find /opt/cni
+/opt/cni
+/opt/cni/bin
+/opt/cni/bin/vrf
+/opt/cni/bin/firewall
+/opt/cni/bin/ipvlan
+/opt/cni/bin/bandwidth
+/opt/cni/bin/weave-net
+/opt/cni/bin/sbr
+/opt/cni/bin/weave-ipam
+/opt/cni/bin/macvlan
+/opt/cni/bin/static
+/opt/cni/bin/host-device
+/opt/cni/bin/vlan
+/opt/cni/bin/weave-plugin-latest
+/opt/cni/bin/dhcp
+/opt/cni/bin/host-local
+/opt/cni/bin/flannel
+/opt/cni/bin/bridge
+/opt/cni/bin/loopback
+/opt/cni/bin/portmap
+/opt/cni/bin/dummy
+/opt/cni/bin/ptp
+/opt/cni/bin/tuning
+
+
+---------------
+sre@k8s-controller-01:~$ sudo apt-get install -y docker.io
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  conntrack cri-tools kubernetes-cni
+Use 'sudo apt autoremove' to remove them.
+Suggested packages:
+  aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-buildx docker-compose-v2 docker-doc rinse zfs-fuse
+  | zfsutils
+The following NEW packages will be installed:
+  docker.io
+0 upgraded, 1 newly installed, 0 to remove and 3 not upgraded.
+Need to get 0 B/29.1 MB of archives.
+After this operation, 109 MB of additional disk space will be used.
+Preconfiguring packages ...
+Selecting previously unselected package docker.io.
+(Reading database ... 83749 files and directories currently installed.)
+Preparing to unpack .../docker.io_24.0.7-0ubuntu4.1_amd64.deb ...
+Unpacking docker.io (24.0.7-0ubuntu4.1) ...
+Setting up docker.io (24.0.7-0ubuntu4.1) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Scanning processes...                                                                                                     
+Scanning linux images...                                                                                                  
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+sre@k8s-controller-01:~$ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+DOCKER-USER  all  --  anywhere             anywhere            
+DOCKER-ISOLATION-STAGE-1  all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain DOCKER (1 references)
+target     prot opt source               destination         
+
+Chain DOCKER-ISOLATION-STAGE-1 (1 references)
+target     prot opt source               destination         
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere            
+RETURN     all  --  anywhere             anywhere            
+
+Chain DOCKER-ISOLATION-STAGE-2 (1 references)
+target     prot opt source               destination         
+DROP       all  --  anywhere             anywhere            
+RETURN     all  --  anywhere             anywhere            
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination         
+RETURN     all  --  anywhere             anywhere            
+
+sre@k8s-controller-01:~$ sudo apt-get install -y kubeadm kubectl kubelet
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following NEW packages will be installed:
+  kubeadm kubectl kubelet
+0 upgraded, 3 newly installed, 0 to remove and 3 not upgraded.
+Need to get 40.2 MB of archives.
+After this operation, 209 MB of additional disk space will be used.
+Get:1 https://prod-cdn.packages.k8s.io/repositories/isv:/kubernetes:/core:/stable:/v1.28/deb  kubelet 1.28.15-1.1 [19.6 MB]
+Get:2 https://prod-cdn.packages.k8s.io/repositories/isv:/kubernetes:/core:/stable:/v1.28/deb  kubectl 1.28.15-1.1 [10.4 MB]
+Get:3 https://prod-cdn.packages.k8s.io/repositories/isv:/kubernetes:/core:/stable:/v1.28/deb  kubeadm 1.28.15-1.1 [10.1 MB]
+Fetched 40.2 MB in 8s (5,131 kB/s)                                                                                                                               
+Selecting previously unselected package kubelet.
+(Reading database ... 83960 files and directories currently installed.)
+Preparing to unpack .../kubelet_1.28.15-1.1_amd64.deb ...
+Unpacking kubelet (1.28.15-1.1) ...
+Selecting previously unselected package kubectl.
+Preparing to unpack .../kubectl_1.28.15-1.1_amd64.deb ...
+Unpacking kubectl (1.28.15-1.1) ...
+Selecting previously unselected package kubeadm.
+Preparing to unpack .../kubeadm_1.28.15-1.1_amd64.deb ...
+Unpacking kubeadm (1.28.15-1.1) ...
+Setting up kubectl (1.28.15-1.1) ...
+Setting up kubelet (1.28.15-1.1) ...
+Setting up kubeadm (1.28.15-1.1) ...
+Scanning processes...                                                                                                                                             
+Scanning linux images...                                                                                                                                          
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+sre@k8s-controller-01:~$ systemctl status kubelet
+○ kubelet.service - kubelet: The Kubernetes Node Agent
+     Loaded: loaded (/usr/lib/systemd/system/kubelet.service; enabled; preset: enabled)
+    Drop-In: /usr/lib/systemd/system/kubelet.service.d
+             └─10-kubeadm.conf
+     Active: inactive (dead)
+       Docs: https://kubernetes.io/docs/
+
+sre@k8s-controller-01:~$ sudo kubeadm config images list
+I1023 22:50:59.871199    2559 version.go:256] remote version is much newer: v1.31.2; falling back to: stable-1.28
+registry.k8s.io/kube-apiserver:v1.28.15
+registry.k8s.io/kube-controller-manager:v1.28.15
+registry.k8s.io/kube-scheduler:v1.28.15
+registry.k8s.io/kube-proxy:v1.28.15
+registry.k8s.io/pause:3.9
+registry.k8s.io/etcd:3.5.15-0
+registry.k8s.io/coredns/coredns:v1.10.1
+
+sre@k8s-controller-01:~$ sudo kubeadm init --control-plane-endpoint=192.168.1.103 --node-name controller --pod-network-cidr=10.244.0.0/16
+I1023 22:50:19.061894    1999 version.go:256] remote version is much newer: v1.31.2; falling back to: stable-1.28
+[init] Using Kubernetes version: v1.28.15
+[preflight] Running pre-flight checks
+	[WARNING Hostname]: hostname "controller" could not be reached
+	[WARNING Hostname]: hostname "controller": lookup controller on 127.0.0.53:53: server misbehaving
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+W1023 22:50:47.754305    1999 checks.go:835] detected that the sandbox image "registry.k8s.io/pause:3.8" of the container runtime is inconsistent with that used by kubeadm. It is recommended that using "registry.k8s.io/pause:3.9" as the CRI sandbox image.
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [controller kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.1.105 192.168.1.103]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [controller localhost] and IPs [192.168.1.105 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [controller localhost] and IPs [192.168.1.105 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[kubelet-check] Initial timeout of 40s passed.
+
+Unfortunately, an error has occurred:
+	timed out waiting for the condition
+
+This error is likely caused by:
+	- The kubelet is not running
+	- The kubelet is unhealthy due to a misconfiguration of the node in some way (required cgroups disabled)
+
+If you are on a systemd-powered system, you can try to troubleshoot the error with the following commands:
+	- 'systemctl status kubelet'
+	- 'journalctl -xeu kubelet'
+
+Additionally, a control plane component may have crashed or exited when started by the container runtime.
+To troubleshoot, list all containers using your preferred container runtimes CLI.
+Here is one example how you may list all running Kubernetes containers by using crictl:
+	- 'crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock ps -a | grep kube | grep -v pause'
+	Once you have found the failing container, you can inspect its logs with:
+	- 'crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock logs CONTAINERID'
+error execution phase wait-control-plane: couldn't initialize a Kubernetes cluster
+To see the stack trace of this error execute with --v=5 or higher
+
+sre@k8s-controller-01:~$ journalctl -xeu kubelet
+Oct 23 22:58:32 k8s-controller-01 kubelet[2199]: E1023 22:58:32.938387    2199 controller.go:146] "Failed to ensure lease exists, will retry" err="Get \"https://>
+Oct 23 22:58:32 k8s-controller-01 kubelet[2199]: E1023 22:58:32.938468    2199 certificate_manager.go:562] kubernetes.io/kube-apiserver-client-kubelet: Failed wh>
+Oct 23 22:58:36 k8s-controller-01 kubelet[2199]: W1023 22:58:36.907299    2199 reflector.go:535] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: failed to >
+Oct 23 22:58:36 k8s-controller-01 kubelet[2199]: E1023 22:58:36.907472    2199 reflector.go:147] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: Failed to >
+Oct 23 22:58:36 k8s-controller-01 kubelet[2199]: W1023 22:58:36.908216    2199 reflector.go:535] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: failed to >
+Oct 23 22:58:36 k8s-controller-01 kubelet[2199]: E1023 22:58:36.908287    2199 reflector.go:147] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: Failed to >
+Oct 23 22:58:39 k8s-controller-01 kubelet[2199]: I1023 22:58:39.944313    2199 kubelet_node_status.go:70] "Attempting to register node" node="controller"
+Oct 23 22:58:40 k8s-controller-01 kubelet[2199]: E1023 22:58:40.940076    2199 kubelet_node_status.go:92] "Unable to register node with API server" err="Post \"h>
+Oct 23 22:58:40 k8s-controller-01 kubelet[2199]: E1023 22:58:40.940092    2199 controller.go:146] "Failed to ensure lease exists, will retry" err="Get \"https://>
+Oct 23 22:58:40 k8s-controller-01 kubelet[2199]: E1023 22:58:40.940155    2199 event.go:289] Unable to write event: '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIV>
+Oct 23 22:58:42 k8s-controller-01 kubelet[2199]: E1023 22:58:42.390973    2199 eviction_manager.go:258] "Eviction manager: failed to get summary stats" err="fail>
+Oct 23 22:58:44 k8s-controller-01 kubelet[2199]: W1023 22:58:44.010230    2199 reflector.go:535] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: failed to >
+Oct 23 22:58:44 k8s-controller-01 kubelet[2199]: E1023 22:58:44.010416    2199 reflector.go:147] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: Failed to >
+Oct 23 22:58:47 k8s-controller-01 kubelet[2199]: I1023 22:58:47.945479    2199 kubelet_node_status.go:70] "Attempting to register node" node="controller"
+Oct 23 22:58:51 k8s-controller-01 kubelet[2199]: E1023 22:58:51.050819    2199 event.go:289] Unable to write event: '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIV>
+Oct 23 22:58:51 k8s-controller-01 kubelet[2199]: E1023 22:58:51.050999    2199 event.go:228] Unable to write event '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIVe>
+Oct 23 22:58:51 k8s-controller-01 kubelet[2199]: E1023 22:58:51.051372    2199 controller.go:146] "Failed to ensure lease exists, will retry" err="Get \"https://>
+Oct 23 22:58:51 k8s-controller-01 kubelet[2199]: E1023 22:58:51.050917    2199 kubelet_node_status.go:92] "Unable to register node with API server" err="Post \"h>
+Oct 23 22:58:52 k8s-controller-01 kubelet[2199]: E1023 22:58:52.391672    2199 eviction_manager.go:258] "Eviction manager: failed to get summary stats" err="fail>
+Oct 23 22:58:54 k8s-controller-01 kubelet[2199]: W1023 22:58:54.122144    2199 reflector.go:535] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: failed to >
+Oct 23 22:58:54 k8s-controller-01 kubelet[2199]: E1023 22:58:54.122307    2199 reflector.go:147] k8s.io/client-go@v0.0.0/tools/cache/reflector.go:229: Failed to >
+Oct 23 22:58:54 k8s-controller-01 kubelet[2199]: E1023 22:58:54.122186    2199 event.go:289] Unable to write event: '&v1.Event{TypeMeta:v1.TypeMeta{Kind:"", APIV>
+Oct 23 22:58:58 k8s-controller-01 kubelet[2199]: I1023 22:58:58.056060    2199 kubelet_node_status.go:70] "Attempting to register node" node="controller"
+lines 477-499/499 (END)
+
+sre@k8s-controller-01:~$ ls -l /var/log/containers/
+total 16
+lrwxrwxrwx 1 root root  85 Oct 23 22:50 etcd-controller_kube-system_etcd-d6dca9769ef1b5260ea0a576d249516f5d6f5c25fa58cb3198ecf96283aeda3a.log -> /var/log/pods/kube-system_etcd-controller_b75f20910afc23e7f623d867aa93ea25/etcd/0.log
+lrwxrwxrwx 1 root root 105 Oct 23 22:50 kube-apiserver-controller_kube-system_kube-apiserver-73246339f24817f89ab8474946557a3f50d3312e49fd2ee1402224d2d3ea441a.log -> /var/log/pods/kube-system_kube-apiserver-controller_c357802745ff7049634b94f33b408aa4/kube-apiserver/0.log
+lrwxrwxrwx 1 root root 123 Oct 23 22:50 kube-controller-manager-controller_kube-system_kube-controller-manager-ff17c1756e0b544759ad7ad35dd7f1db6e3b5f22bc80667880c12374d1619607.log -> /var/log/pods/kube-system_kube-controller-manager-controller_e6dc795c95628a1f4418d6df9d4a2651/kube-controller-manager/0.log
+lrwxrwxrwx 1 root root 105 Oct 23 22:50 kube-scheduler-controller_kube-system_kube-scheduler-000bc663cc9bf486596b325a5ac496840cb4debf00318f39e65c3488809c2676.log -> /var/log/pods/kube-system_kube-scheduler-controller_f45d3fc5857915ac27845c3081757625/kube-scheduler/0.log
+
+sre@k8s-controller-01:~$ kubectl get services
+Unable to connect to the server: tls: failed to verify certificate: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
+

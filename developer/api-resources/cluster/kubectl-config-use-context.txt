@@ -1,0 +1,7 @@
+tim@Tims-MBP ~ % kubectl config get-contexts
+CURRENT   NAME             CLUSTER          AUTHINFO         NAMESPACE
+          docker-desktop   docker-desktop   docker-desktop   
+*         minikube         minikube         minikube         
+tim@Tims-MBP ~ % kubectl config use-context docker-desktop
+Switched to context "docker-desktop".
+

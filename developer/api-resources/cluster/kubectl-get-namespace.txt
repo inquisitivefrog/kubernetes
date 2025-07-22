@@ -1,0 +1,8 @@
+
+tim@Tims-MBP 3.4.3_LocalDevelopment % kubectl get namespace
+NAME              STATUS   AGE
+default           Active   20h
+kube-node-lease   Active   20h
+kube-public       Active   20h
+kube-system       Active   20h
+
