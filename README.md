@@ -12,7 +12,7 @@ Kubernetes Control Plane
 
 ./security
 
-Examples of Simple Applications deployed using Kubernetes and Docker
+Applications deployed using Kubernetes and Docker
 
 ./simple-app/myapp/Dockerfile
 
